@@ -63,6 +63,7 @@ class BaseRecipeAttrViewSet(
                 viewsets.GenericViewSet):
     """Base viewset for recipe attributes."""
 
+
 class TagViewSet(
                 mixins.DestroyModelMixin,
                 mixins.UpdateModelMixin,
