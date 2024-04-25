@@ -5,8 +5,8 @@ from rest_framework import serializers
 
 from core.models import (
     Recipe,
-    Ingredient,
     Tag,
+    Ingredient,
 )
 
 
@@ -80,7 +80,7 @@ class RecipeSerializer(serializers.ModelSerializer):
             self._get_or_create_tags(tags, instance)
         if ingredients is not None:
             instance.ingredients.clear()
-            self._get_or_create_tags(ingredients, instance)
+            self._get_or_create_ingredients(ingredients, instance)
 
         for attr, value in validated_data.items():
             setattr(instance, attr, value)

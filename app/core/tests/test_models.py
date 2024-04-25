@@ -35,7 +35,7 @@ class ModelTests(TestCase):
         sample_emails = [
             ['test1@EXAMPLE.com', 'test1@example.com'],
             ['Test2@Example.com', 'Test2@example.com'],
-            ['TEST3@EXAMPLE.COM', 'TEST3@example.com'],
+            ['TEST3@EXAMPLE.com', 'TEST3@example.com'],
             ['test4@example.COM', 'test4@example.com'],
         ]
         for email, expected in sample_emails:
@@ -57,7 +57,7 @@ class ModelTests(TestCase):
         self.assertTrue(user.is_superuser)
         self.assertTrue(user.is_staff)
 
-    def test_recipe_create(self):
+    def test_create_recipe(self):
         """Test creating a recipe is successfull."""
         user = get_user_model().objects.create_user(
             'test@example.com',
