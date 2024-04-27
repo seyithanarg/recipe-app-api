@@ -7,6 +7,7 @@ from drf_spectacular.utils import (
     OpenApiParameter,
     OpenApiTypes,
 )
+
 from rest_framework import (
     viewsets,
     mixins,
@@ -31,10 +32,10 @@ from recipe import serializers
             OpenApiParameter(
                 'tags',
                 OpenApiTypes.STR,
-                description='Comma seperated list of IDs to filter',
+                description='Comma seperated list of tags to filter',
             ),
             OpenApiParameter(
-                'ingreedients'
+                'ingredients',
                 OpenApiTypes.STR,
                 description='Comma seperated list of ingredient ids to filter',
             )
@@ -64,9 +65,9 @@ class RecipeViewSet(viewsets.ModelViewSet):
             ingredient_ids = self._params_to_ints(ingredients)
             queryset = queryset.filter(ingredients__id__in=ingredient_ids)
 
-        return queryset.filter(user=self.request.user).order_by('-id').distinct()
-
-        # return self.queryset.filter(user=self.request.user).order_by('-id')
+        return queryset.filter(
+            user=self.request.user
+            ).order_by('-id').distinct()
 
     def get_serializer_class(self):
         """Return the serializer class for request."""
@@ -94,11 +95,10 @@ class RecipeViewSet(viewsets.ModelViewSet):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class BaseRecipeAttrViewSet(
-        mixins.DestroyModelMixin,
-        mixins.UpdateModelMixin,
-        mixins.ListModelMixin,
-        viewsets.GenericViewSet):
+class BaseRecipeAttrViewSet(mixins.DestroyModelMixin,
+                            mixins.UpdateModelMixin,
+                            mixins.ListModelMixin,
+                            viewsets.GenericViewSet):
     """Base viewset for recipe attributes."""
 
 

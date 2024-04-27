@@ -77,10 +77,10 @@ class PrivateRecipeApiTests(TestCase):
 
     def setUp(self):
         self.client = APIClient()
-        self.user = create_user(email='user@ecample.com', password='test123')
+        self.user = create_user(email='user@example.com', password='test123')
         self.client.force_authenticate(self.user)
 
-    def test_retrieve_recipees(self):
+    def test_retrieve_recipes(self):
         """Test retrieving a list of recipes."""
         create_recipe(user=self.user)
         create_recipe(user=self.user)
@@ -387,9 +387,9 @@ class PrivateRecipeApiTests(TestCase):
         tag2 = Tag.objects.create(user=self.user, name='Vegetarian')
         r1.tags.add(tag1)
         r2.tags.add(tag2)
-        r3 = create_recipe(user=self.user, title='Fidh and Chips')
+        r3 = create_recipe(user=self.user, title='Fish and Chips')
 
-        params = { 'tags': f'{tag1.id},{tag2.id}'}
+        params = {'tags': f'{tag1.id},{tag2.id}'}
         res = self.client.get(RECIPES_URL, params)
 
         s1 = RecipeSerializer(r1)
@@ -409,7 +409,7 @@ class PrivateRecipeApiTests(TestCase):
         r2.ingredients.add(in2)
         r3 = create_recipe(user=self.user, title='Red Lendtil Daal')
 
-        params = { 'ingredients': f'{in1.id},{in2.id}'}
+        params = {'ingredients': f'{in1.id},{in2.id}'}
         res = self.client.get(RECIPES_URL, params)
 
         s1 = RecipeSerializer(r1)
